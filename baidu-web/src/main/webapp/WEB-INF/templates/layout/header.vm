@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="/css/templates/header.css">
+
+
+<div class="page-header page_top">
+
+    <div class="row">
+        <div class="col-md-1">
+            &nbsp;
+        </div>
+        <div class="col-md-11">
+            <h3>baidu-framework&nbsp; <small>后台管理系统</small> </h3>
+            <span>用户名：$!{current_user.userName}&nbsp;&nbsp;&nbsp;| </span>
+            <span>
+                <a href="javaScript:void(0)" onclick="return goChangePwdPage();" style="text-decoration: none" >【修改密码】</a>
+
+            </span>
+            <span>
+                <a href="javaScript:void(0)" onclick="return aa()" style="text-decoration: none">【退出】</a>
+            </span>
+        </div>
+
+
+    </div>
+</div>

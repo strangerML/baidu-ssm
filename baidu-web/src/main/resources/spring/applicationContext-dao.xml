@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+
+	<!-- 加载配置文件 -->
+	<context:property-placeholder location="classpath:/properties/jdbc.properties"/>
+	
+	<!-- 创建数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+			
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<property name="minIdle" value="${jdbc.minIdle}" />
+	</bean>
+	
+	<!-- 指定全局配置文件，链接工厂 -->
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+			<property name="dataSource" ref="dataSource"></property>
+			<property name="configLocation" value="classpath:/mybatis/SqlMapConfig.xml"></property>
+			<!-- 数据源 -->
+
+
+			<!-- 别名定义,扫描pojo包，可以用分号隔开 多个包扫描 -->
+			<property name="typeAliasesPackage" value="com.baidu.house.sysmanager.pojo"></property>
+
+		<!--扫描mapper配置文件呢，不用和dao接口在一起就行-->
+			<property name="mapperLocations" value="classpath:mybatis/baidu/**/*.xml"></property>
+	</bean>
+	
+	
+	<!-- 批量配置mapper代理类 -->
+	<bean  class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+
+		<!--注入sqlSessionFactory,防止提前初始化-->
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+		<!--动态扫描dao接口-->
+		<property name="basePackage" value="com.baidu.house.sysmanager.dao"></property>
+	</bean>
+	
+	
+	
+</beans>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	   xmlns:cache="http://www.springframework.org/schema/cache"
+	   xsi:schemaLocation="
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/jdbc
+    http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+    http://www.springframework.org/schema/cache
+    http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util.xsd">
+<!-- 加载配置文件 -->
+	<context:property-placeholder location="classpath:/jdbc.properties"/>
+	
+	<!-- 创建数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+			
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<property name="minIdle" value="${jdbc.minIdle}" />
+	</bean>
+	
+	<!-- 指定全局配置文件，链接工厂 -->
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+			<property name="dataSource" ref="dataSource"></property>
+			<property name="configLocation" value="classpath:/SqlMapConfig.xml"></property>
+			<!-- 数据源 -->
+
+
+			<!-- 别名定义 -->
+			<property name="typeAliasesPackage" value="com.baidu.house.sysmanager.pojo.contact"></property>
+
+		<!--扫描mapper配置文件呢-->
+		<!--	<property name="mapperLocations" value="classpath:/com/baidu/**/*Mapper.xml"></property>
+	-->
+	</bean>
+	
+	
+	<!-- 批量配置mapper代理类 -->
+	<bean  class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+
+		<!--注入sqlSessionFactory,防止提前初始化-->
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+		<property name="basePackage" value="com.baidu.contact.mapper"></property>
+	</bean>
+	
+	
+	
+</beans>

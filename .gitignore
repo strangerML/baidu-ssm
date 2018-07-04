@@ -1,2 +1,10 @@
 .idea/
-baidu-framework.iml
+*.iml
+*.targer
+baidu-dao/target/*
+baidu-service/target/*
+baidu-web/target/*
+baidu-pojo/target/*
+
+
+

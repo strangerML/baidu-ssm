@@ -1,4 +1,4 @@
-package com.baidu.house.sysmanager.pojo;
+package com.baidu.house.sysmanager.pojo.authorityrole;
 
 import java.util.Date;
 

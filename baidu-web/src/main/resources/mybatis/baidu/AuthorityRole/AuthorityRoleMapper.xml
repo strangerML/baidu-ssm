@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.baidu.house.sysmanager.dao.AuthorityRoleMapper">
-  <resultMap id="BaseResultMap" type="com.baidu.house.sysmanager.pojo.AuthorityRole">
+<mapper namespace="com.baidu.house.sysmanager.dao.authorityrole.AuthorityRoleMapper">
+  <resultMap id="BaseResultMap" type="com.baidu.house.sysmanager.pojo.authorityrole.AuthorityRole">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
@@ -11,23 +11,28 @@
   <sql id="Base_Column_List">
     id, name, createTime, updateTime, remark
   </sql>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from t_authority_role
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_authority_role
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.baidu.house.sysmanager.pojo.AuthorityRole">
+  <insert id="insert" parameterType="com.baidu.house.sysmanager.pojo.authorityrole.AuthorityRole">
     insert into t_authority_role (id, name, createTime, 
       updateTime, remark)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
       #{updatetime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.baidu.house.sysmanager.pojo.AuthorityRole">
+  <insert id="insertSelective" parameterType="com.baidu.house.sysmanager.pojo.authorityrole.AuthorityRole">
     insert into t_authority_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -64,7 +69,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.house.sysmanager.pojo.AuthorityRole">
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.house.sysmanager.pojo.authorityrole.AuthorityRole">
     update t_authority_role
     <set>
       <if test="name != null">
@@ -82,7 +87,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.baidu.house.sysmanager.pojo.AuthorityRole">
+  <update id="updateByPrimaryKey" parameterType="com.baidu.house.sysmanager.pojo.authorityrole.AuthorityRole">
     update t_authority_role
     set name = #{name,jdbcType=VARCHAR},
       createTime = #{createtime,jdbcType=TIMESTAMP},
@@ -90,4 +95,14 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <!--根据name查询数据-->
+  <select id="queryByRoleName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_authority_role
+    where name = #{name,jdbcType=BIGINT}
+  </select>
+
+
 </mapper>

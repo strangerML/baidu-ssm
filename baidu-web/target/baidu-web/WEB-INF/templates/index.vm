@@ -1,8 +1,0 @@
-<h1>这是首页</h1>
-<div>
-    #parse("layout/header.vm")
-
-    <h1>这是中部区</h1>
-
-    #parse("layout/footer.vm")
-</div>

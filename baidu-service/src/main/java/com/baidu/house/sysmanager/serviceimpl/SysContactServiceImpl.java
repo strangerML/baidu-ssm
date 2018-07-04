@@ -1,9 +1,9 @@
-package com.baidu.house.sysmanager.contact.serviceimpl;
+package com.baidu.house.sysmanager.serviceimpl;
 
-import com.baidu.house.sysmanager.dao.contact.ContactMapper;
+
 import com.baidu.house.sysmanager.pojo.contact.Contact;
 import com.baidu.house.sysmanager.pojo.contact.ContactExample;
-import com.baidu.house.sysmanager.contact.service.SysContactService;
+import com.baidu.house.sysmanager.service.SysContactService;
 import org.apache.ibatis.annotations.Param;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +18,6 @@ import java.util.List;
 @Service
 public class SysContactServiceImpl implements SysContactService {
 
-
-    @Autowired
-    private ContactMapper contactMapper;
-
-
-
-
     @Override
     public int countByExample(ContactExample example) {
         return 0;
@@ -37,7 +30,7 @@ public class SysContactServiceImpl implements SysContactService {
 
     @Override
     public int deleteByPrimaryKey(String id) {
-        return contactMapper.deleteByPrimaryKey(id);
+        return 0;
     }
 
     @Override
@@ -46,39 +39,27 @@ public class SysContactServiceImpl implements SysContactService {
     }
 
     @Override
-    @Transactional
     public int insertSelective(Contact record) {
-        int i ;
-        try {
-            contactMapper.insertSelective(record);
-
-            i = 1;
-        } catch (Exception e) {
-            e.printStackTrace();
-
-
-            i =0;
-        }
-        return i;
-    }
-
-    @Override
-    public List<Contact> selectByExample(ContactExample example) {
-        return contactMapper.selectByExample(example);
-    }
-
-    @Override
-    public Contact selectByPrimaryKey(String id) {
-        return contactMapper.selectByPrimaryKey(id);
-    }
-
-    @Override
-    public int updateByExampleSelective(@Param("record") Contact record, @Param("example") ContactExample example) {
         return 0;
     }
 
     @Override
-    public int updateByExample(@Param("record") Contact record, @Param("example") ContactExample example) {
+    public List<Contact> selectByExample(ContactExample example) {
+        return null;
+    }
+
+    @Override
+    public Contact selectByPrimaryKey(String id) {
+        return null;
+    }
+
+    @Override
+    public int updateByExampleSelective(Contact record, ContactExample example) {
+        return 0;
+    }
+
+    @Override
+    public int updateByExample(Contact record, ContactExample example) {
         return 0;
     }
 

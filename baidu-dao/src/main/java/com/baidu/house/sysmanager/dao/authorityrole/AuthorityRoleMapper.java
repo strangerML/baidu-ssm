@@ -1,6 +1,7 @@
-package com.baidu.house.sysmanager.dao;
+package com.baidu.house.sysmanager.dao.authorityrole;
 
-import com.baidu.house.sysmanager.pojo.AuthorityRole;
+
+import com.baidu.house.sysmanager.pojo.authorityrole.AuthorityRole;
 
 public interface AuthorityRoleMapper {
     int deleteByPrimaryKey(Long id);
@@ -14,4 +15,6 @@ public interface AuthorityRoleMapper {
     int updateByPrimaryKeySelective(AuthorityRole record);
 
     int updateByPrimaryKey(AuthorityRole record);
+
+    AuthorityRole queryByRoleName(String name);
 }

@@ -1,4 +1,4 @@
-package com.baidu.house.sysmanager.contact.service;
+package com.baidu.house.sysmanager.service;
 
 import com.baidu.house.sysmanager.pojo.contact.Contact;
 import com.baidu.house.sysmanager.pojo.contact.ContactExample;

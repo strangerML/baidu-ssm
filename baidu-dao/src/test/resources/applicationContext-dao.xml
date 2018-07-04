@@ -44,8 +44,8 @@
 			<property name="typeAliasesPackage" value="com.baidu.house.sysmanager.pojo.contact"></property>
 
 		<!--扫描mapper配置文件呢-->
-		<!--	<property name="mapperLocations" value="classpath:/com/baidu/**/*Mapper.xml"></property>
-	-->
+			<!--<property name="mapperLocations" value="mybatis/baidu"></property>-->
+
 	</bean>
 	
 	
@@ -54,7 +54,7 @@
 
 		<!--注入sqlSessionFactory,防止提前初始化-->
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
-		<property name="basePackage" value="com.baidu.contact.mapper"></property>
+		<property name="basePackage" value="com.baidu.house.sysmanager.dao"></property>
 	</bean>
 	
 	

@@ -1,6 +1,6 @@
 package com.baidu.house.sysmanager.controller.contact;
 
-import com.baidu.house.sysmanager.contact.service.SysContactService;
+import com.baidu.house.sysmanager.service.SysContactService;
 import com.baidu.house.sysmanager.pojo.contact.Contact;
 import com.baidu.house.sysmanager.pojo.contact.ContactExample;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,9 +2,11 @@ package com.baidu.house.sysmanager.controller.authorityrole;
 
 
 import com.baidu.house.sysmanager.pojo.authorityrole.AuthorityRole;
+import com.baidu.house.sysmanager.pojo.common.PageUtils;
 import com.baidu.house.sysmanager.pojo.common.ResultUtils;
 import com.baidu.house.sysmanager.service.AuthorityRole.AuthorityRoleService;
 
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 
 import org.slf4j.Logger;
@@ -13,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/role")
@@ -35,11 +39,24 @@ public class SysAuthorityRoleController {
      */
     @RequestMapping("/query")
     @ResponseBody
-    public String queryRole() {
-        AuthorityRole authorityRole = authorityRoleService.selectByPrimaryKey(6L);
-        System.out.println(authorityRole);
+    public PageUtils<AuthorityRole> queryRole(PageUtils page, AuthorityRole role) {
+
+        PageUtils<AuthorityRole> pageUtils = new PageUtils<AuthorityRole>();
+        if(role.getName()!=null){
+            pageUtils.getLike().put("name",role.getName());
+        }
+       if(role.getRemark()!=null){
+
+           pageUtils.getLike().put("remark",role.getRemark());
+       }
+
+        PageInfo<AuthorityRole> pageRole = authorityRoleService.queryPageRole(page, role);
+
+        //需要把具体搜索的参数也要带回去
+        pageUtils.setPageInfo(pageRole);
+        System.out.println(pageRole);
         System.out.println("进来了");
-        return "wwww";
+        return pageUtils;
     }
 
     /**

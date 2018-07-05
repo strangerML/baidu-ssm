@@ -2,10 +2,15 @@ package com.baidu.house.sysmanager.serviceimpl.authorityrole;
 
 import com.baidu.house.sysmanager.dao.authorityrole.AuthorityRoleMapper;
 import com.baidu.house.sysmanager.pojo.authorityrole.AuthorityRole;
+import com.baidu.house.sysmanager.pojo.common.PageUtils;
 import com.baidu.house.sysmanager.service.AuthorityRole.AuthorityRoleService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class AuthorityRoleServiceImpl implements AuthorityRoleService {
@@ -50,4 +55,22 @@ public class AuthorityRoleServiceImpl implements AuthorityRoleService {
     public AuthorityRole queryByRoleName(String name) {
         return authorityRoleMapper.queryByRoleName(name);
     }
+
+    @Override
+    public PageInfo<AuthorityRole> queryPageRole(PageUtils page, AuthorityRole role) {
+
+        int pageNum = page.getPageNum()==null?1:page.getPageNum();
+        int pageSize = page.getPageSize()==null?5:page.getPageSize();
+        PageHelper.startPage(pageNum,pageSize);
+        //设置起始页和结束页
+        //设置查询条件
+        List<AuthorityRole> roleList = authorityRoleMapper.queryPageRole(role);
+
+        PageInfo<AuthorityRole> resupage = new PageInfo<>(roleList);
+
+        System.out.println(resupage);
+
+        return resupage;
+    }
+
 }

@@ -16,7 +16,6 @@
         <mysql.version>5.1.32</mysql.version>
         <druid.version>1.0.9</druid.version>
         <mybatis.version>3.2.8</mybatis.version>
-        <pagehelper.version>3.2.3</pagehelper.version>
         <!-- mybatis与spring整合包 -->
         <mybatis.spring.version>1.2.2</mybatis.spring.version>
         <!-- spring相关 -->
@@ -55,6 +54,11 @@
         <fastdfs_client.version>1.25</fastdfs_client.version>
         <!-- activemq依赖 -->
         <activemq.verion>5.11.2</activemq.verion>
+
+        <!--分页-->
+
+        <pagehelper.verion>5.1.2</pagehelper.verion>
+
     </properties>
 
     <!-- 统一管理依赖版本号 -->
@@ -181,14 +185,6 @@
                 <artifactId>mybatis</artifactId>
                 <version>${mybatis.version}</version>
             </dependency>
-
-            <!-- mybatis的分页插件 -->
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper</artifactId>
-                <version>${pagehelper.version}</version>
-            </dependency>
-
 
             <!-- mybatis与spring的整合包 -->
             <dependency>
@@ -330,6 +326,12 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>2.4</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>${pagehelper.verion}</version>
             </dependency>
 
 

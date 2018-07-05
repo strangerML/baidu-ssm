@@ -6,6 +6,9 @@ import com.baidu.house.sysmanager.pojo.common.ResultUtils;
 import com.baidu.house.sysmanager.service.AuthorityRole.AuthorityRoleService;
 
 import org.apache.commons.lang3.StringUtils;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +18,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/role")
 public class SysAuthorityRoleController {
 
+    private static final  Logger logger = LoggerFactory.getLogger(SysAuthorityRoleController.class);
+
+
+
+
 
     @Autowired
     private AuthorityRoleService authorityRoleService;
 
+    /**
+     * request:
+     * return:
+     *
+     * @return
+     */
     @RequestMapping("/query")
     @ResponseBody
     public String queryRole() {
@@ -100,15 +114,34 @@ public class SysAuthorityRoleController {
     }
 
 
-    @RequestMapping("/updateRole")
-    public void updateRole() {
-        System.out.println("进来了--updateRole");
-    }
+
 
 
     @RequestMapping("/delRole")
-    public void delRole() {
-        System.out.println("进来了--updateRole");
+    @ResponseBody
+    public ResultUtils delRole(AuthorityRole role) {
+
+        if(role.getId()==null){
+            return ResultUtils.build(500,"角色不能为空");
+        }
+        int i = 0;
+        try {
+            i = authorityRoleService.deleteByPrimaryKey(role.getId());
+
+            if(i!=1){
+                logger.error("error--id");
+                return ResultUtils.build(500,"请输入正确的id");
+            }
+            logger.info("info----success");
+            System.out.println("返回的结果------》"+i);
+            return ResultUtils.ok();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtils.build(500,"删除异常");
+        }
+
+
+
     }
 
     @RequestMapping

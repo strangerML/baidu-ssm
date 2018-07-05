@@ -15,7 +15,7 @@ public class AuthorityRoleServiceImpl implements AuthorityRoleService {
 
     @Override
     public int deleteByPrimaryKey(Long id) {
-        return 0;
+        return authorityRoleMapper.deleteByPrimaryKey(id);
     }
 
     @Transactional

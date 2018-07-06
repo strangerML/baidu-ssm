@@ -32,6 +32,8 @@
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
       #{updatetime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
   </insert>
+
+
   <insert id="insertSelective" parameterType="com.baidu.house.sysmanager.pojo.authorityrole.AuthorityRole">
     insert into t_authority_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -69,6 +71,9 @@
       </if>
     </trim>
   </insert>
+
+
+
   <update id="updateByPrimaryKeySelective" parameterType="com.baidu.house.sysmanager.pojo.authorityrole.AuthorityRole">
     update t_authority_role
     <set>
@@ -103,6 +108,35 @@
     from t_authority_role
     where name = #{name,jdbcType=BIGINT}
   </select>
+
+<!--分页查询-->
+
+  <select id="queryPageRole" resultMap="BaseResultMap" parameterType="com.baidu.house.sysmanager.pojo.authorityrole.AuthorityRole">
+    select <include refid="Base_Column_List" />
+    from t_authority_role
+
+    where 1=1
+
+
+    <if test="id != null">
+      and  id=  #{id,jdbcType=BIGINT}
+    </if>
+    <if test="name != null">
+      and name =  #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="createtime != null">
+      and createtime =  #{createtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="updatetime != null">
+      and updatetime =  #{updatetime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="remark != null">
+      and remark=   #{remark,jdbcType=VARCHAR}
+    </if>
+
+
+  </select>
+
 
 
 </mapper>

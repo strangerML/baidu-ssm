@@ -5,7 +5,10 @@ import com.baidu.house.sysmanager.controller.authorityrole.SysAuthorityRoleContr
 import com.baidu.house.sysmanager.pojo.authorityrole.AuthorityRole;
 import com.baidu.house.sysmanager.pojo.authorityuser.AuthorityUser;
 import com.baidu.house.sysmanager.pojo.common.PageUtils;
+import com.baidu.house.sysmanager.pojo.common.Result;
+import com.baidu.house.sysmanager.pojo.common.ResultUtil;
 import com.baidu.house.sysmanager.pojo.common.ResultUtils;
+import com.baidu.house.sysmanager.service.AuthorityRole.AuthorityRoleService;
 import com.baidu.house.sysmanager.service.authorityuser.AuthorityUserService;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -13,15 +16,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/sysuser")
 public class AuthorityUserController {
 
@@ -31,17 +32,37 @@ public class AuthorityUserController {
     @Autowired
     private AuthorityUserService authorityUserService;
 
+    @Autowired
+    private AuthorityRoleService roleService;
+
+
     /**
-     * request:
-     * return:
-     *
+     * request:用户的名称，角色的名称,当前页，每页的大小
+     * return: 返回集合
+     *  查询所有的用户-包含角色
      * @return
      */
     @RequestMapping("/query")
     @ResponseBody
-    public PageUtils<AuthorityUser> queryRole(PageUtils page, AuthorityUser role) {
+    public PageUtils<Map> queryRole(PageUtils page,String roleName, AuthorityUser user) {
 
-        return null;
+        PageUtils<Map> resu = null;
+
+        try {
+            PageInfo<Map> map =  authorityUserService.queryPageUsers(page,roleName,user);
+
+            resu = new PageUtils<>();
+            resu.setPageInfo(map);
+            resu.getLike().put("roleName",roleName);
+            resu.getLike().put("userName",user.getUserName());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
+
+        }
+
+        return resu;
     }
 
     /**
@@ -125,18 +146,25 @@ public class AuthorityUserController {
      * @param id
      * @return
      */
-    @RequestMapping("/delUser")
-    @ResponseBody
-    public ResultUtils delUser(Long id) {
+    @RequestMapping("/delUser/")
+    public Result<Object> delUser( Long id) {
 
         try {
             authorityUserService.deleteByPrimaryKey(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultUtils.build(500, "删除-操作失败");
+            return new ResultUtil<>().setErrorMsg("删除错误");
         }
-        return ResultUtils.ok();
+        return new ResultUtil<>().setData(null);
 
+    }
+
+
+    @RequestMapping("/getAllRoles")
+    @ResponseBody
+    public ResultUtils getAllRoles(){
+        List<AuthorityRole> resu = roleService.getAllRoles();
+        return ResultUtils.build(null,null,resu);
     }
 
     public static void main(String[] args) {

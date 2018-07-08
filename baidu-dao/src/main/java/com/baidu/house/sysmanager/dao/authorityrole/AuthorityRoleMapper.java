@@ -21,4 +21,6 @@ public interface AuthorityRoleMapper {
     AuthorityRole queryByRoleName(String name);
 
     List<AuthorityRole> queryPageRole(AuthorityRole role);
+
+    List<AuthorityRole> getAllRoles();
 }

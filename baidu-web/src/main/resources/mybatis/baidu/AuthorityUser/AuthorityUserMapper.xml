@@ -172,4 +172,36 @@
   </select>
 
 
+
+
+    <!--查询所有用户数据-->
+
+    <select id="queryPageUsers" parameterType="java.util.Map" resultType="java.util.Map">
+
+
+         select u.*,r.name,r.id as roleId
+        from t_authority_user u inner join t_authority_user_role ur
+
+        on u.id = ur.USER_ID
+
+        inner join t_authority_role r
+
+        on ur.ROLE_ID = r.id
+
+        where 1 = 1
+
+        <if test="userName != null and userName!='' ">
+            and u.USER_NAME =  #{userName,jdbcType=VARCHAR}
+        </if>
+
+        <if test="roleName != null and roleName!='' ">
+            and r.name =  #{roleName,jdbcType=VARCHAR}
+        </if>
+
+  </select>
+
+
+
+
+
 </mapper>

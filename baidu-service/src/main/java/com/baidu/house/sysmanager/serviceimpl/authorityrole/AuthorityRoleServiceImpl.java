@@ -73,4 +73,9 @@ public class AuthorityRoleServiceImpl implements AuthorityRoleService {
         return resupage;
     }
 
+    @Override
+    public List<AuthorityRole> getAllRoles() {
+        return authorityRoleMapper.getAllRoles();
+    }
+
 }

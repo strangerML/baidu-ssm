@@ -139,4 +139,15 @@
 
 
 
+
+  <select id="getAllRoles" resultMap="BaseResultMap" >
+    select <include refid="Base_Column_List" />
+    from t_authority_role
+
+
+
+
+  </select>
+
+
 </mapper>

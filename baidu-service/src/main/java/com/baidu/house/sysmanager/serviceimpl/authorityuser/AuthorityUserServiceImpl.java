@@ -2,12 +2,16 @@ package com.baidu.house.sysmanager.serviceimpl.authorityuser;
 
 import com.baidu.house.sysmanager.dao.authorityuser.AuthorityUserMapper;
 import com.baidu.house.sysmanager.pojo.authorityuser.AuthorityUser;
+import com.baidu.house.sysmanager.pojo.common.PageUtils;
 import com.baidu.house.sysmanager.service.authorityuser.AuthorityUserService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -89,6 +93,33 @@ public class AuthorityUserServiceImpl implements AuthorityUserService {
     @Override
     public Map selectByPrimaryKeyResuMap(Long id) {
         return authorityUserMapper.selectByPrimaryKeyResuMap(id);
+    }
+
+
+    @Override
+    public PageInfo<Map> queryPageUsers(PageUtils page, String roleName, AuthorityUser user) {
+
+        //
+        int pagenum1 = page.getPageNum()==null? 1 : page.getPageNum();
+        int pageSize1 = page.getPageSize()==null?5:page.getPageSize();
+
+
+        Map<String,Object> map = new HashMap<String,Object>();
+
+        map.put("roleName",roleName);
+
+        map.put("userName",user.getUserName());
+
+        PageHelper.startPage(pagenum1,pageSize1);
+
+        List<Map> resu = authorityUserMapper.queryPageUsers(map);
+
+        PageInfo<Map> ma  = new PageInfo<>(resu);
+
+        System.out.println(ma);
+
+        return ma;
+
     }
 
     //返回集合

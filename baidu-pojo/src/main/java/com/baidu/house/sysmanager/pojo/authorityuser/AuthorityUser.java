@@ -19,6 +19,8 @@ public class AuthorityUser {
 
     private String remark;
 
+
+
     public Long getId() {
         return id;
     }

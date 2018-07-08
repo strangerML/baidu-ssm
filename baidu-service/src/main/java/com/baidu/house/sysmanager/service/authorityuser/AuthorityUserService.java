@@ -1,6 +1,8 @@
 package com.baidu.house.sysmanager.service.authorityuser;
 
 import com.baidu.house.sysmanager.pojo.authorityuser.AuthorityUser;
+import com.baidu.house.sysmanager.pojo.common.PageUtils;
+import com.github.pagehelper.PageInfo;
 
 import java.util.Map;
 
@@ -23,4 +25,6 @@ public interface AuthorityUserService {
     void updateUserAndRole(AuthorityUser user, Long roleId);
 
     Map selectByPrimaryKeyResuMap(Long id);
+
+    PageInfo<Map> queryPageUsers(PageUtils page, String roleName, AuthorityUser role);
 }

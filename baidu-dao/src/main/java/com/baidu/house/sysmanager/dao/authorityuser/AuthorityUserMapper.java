@@ -3,6 +3,7 @@ package com.baidu.house.sysmanager.dao.authorityuser;
 import com.baidu.house.sysmanager.pojo.authorityuser.AuthorityUser;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public interface AuthorityUserMapper {
@@ -25,4 +26,6 @@ public interface AuthorityUserMapper {
     void deleteUserAndRole(Long id);
 
     Map selectByPrimaryKeyResuMap(Long id);
+
+    List<Map> queryPageUsers(Map<String,Object> map);
 }
